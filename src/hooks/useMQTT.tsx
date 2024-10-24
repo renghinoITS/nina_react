@@ -13,22 +13,22 @@ const useMQTT = () => {
 
 	useEffect(() => {
 		// Collegamento al broker Mosquitto tramite WebSocket
-		const mqttClient = mqtt.connect('ws://10.10.15.85:9001');
+		const mqttClient = mqtt.connect("ws://10.10.15.85:9001");
 
 		// Impostazione del client MQTT
-		mqttClient.on('connect', () => {
-		console.log('Connesso a Mosquitto tramite WebSocket');
+		mqttClient.on("connect", () => {
+		console.log("Connesso a Mosquitto tramite WebSocket");
 
 		// Sottoscrizione a un topic MQTT
-			mqttClient.subscribe('nina/status', (err) => {
+			mqttClient.subscribe("nina/status", (err) => {
 			if (!err) {
-				console.log('Sottoscritto a test/topic');
+				console.log("Sottoscritto a test/topic");
 				}
 			});
 		});
 
 		// Gestione dei messaggi in arrivo
-		mqttClient.on('message', (topic, message) => {
+		mqttClient.on("message", (topic, message) => {
 			console.log(message);
 			setMessages((prevMessages) => [
 			...prevMessages,
