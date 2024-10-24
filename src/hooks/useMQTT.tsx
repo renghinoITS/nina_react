@@ -20,7 +20,7 @@ const useMQTT = () => {
 		console.log("Connesso a Mosquitto tramite WebSocket");
 
 		// Sottoscrizione a un topic MQTT
-			mqttClient.subscribe("nina/status", (err) => {
+			mqttClient.subscribe("Test Topic", (err) => {
 			if (!err) {
 				console.log("Sottoscritto a test/topic");
 				}
@@ -29,7 +29,12 @@ const useMQTT = () => {
 
 		// Gestione dei messaggi in arrivo
 		mqttClient.on("message", (topic, message) => {
-			console.log(message);
+			// Usa TextDecoder per convertire l'Uint8Array in stringa
+			const decoder = new TextDecoder("utf-8");
+			const decodedString = decoder.decode(message);
+
+			console.log(decodedString);  // Output: "Test Payload"
+
 			setMessages((prevMessages) => [
 			...prevMessages,
 			{ topic, message: message.toString() }
