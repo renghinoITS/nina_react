@@ -1,163 +1,171 @@
 body {
-    font-family: Monaco, sans-serif;
-    color: #ffffff;
-    background-image: url('../img/moon.jpg'); /* Percorso relativo all'immagine */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  .container {
-    text-align: center;
-    backdrop-filter: blur(10px);
-    padding: 40px; /* Aumentato il padding per dare più spazio interno */
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    max-width: 1200px; /* Aumentato il valore per rendere la finestra più ampia */
-    width: 90%;
-    max-height: 600px; /* Aumentato il valore per rendere la finestra più lunga */
-    background: rgba(0, 0, 0, 0.5); /* Sfondo leggermente scuro e trasparente */
-    overflow-y: auto; /* Consente lo scroll verticale se il contenuto è molto */
-  }
-  
-  h1 {
-    margin-bottom: 30px;
-    color: #ffffff;
-    font-size: 1.8em;
-  }
-  
-  /* Contenitore notifiche scorrevole */
-  .notifications {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 500px; /* Permette più notifiche visibili all'interno */
-    overflow-y: auto;
-    padding-right: 5px;
-  }
-  
-  .notification {
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    color: #ffffff;
-  }
-  
-  .notification.correct {
-    background-color: rgba(76, 175, 80, 0.8);
-  }
-  
-  .notification.warning {
-    background-color: rgba(255, 193, 7, 0.8);
-  }
-  
-  .notification.error {
-    background-color: rgba(244, 67, 54, 0.8);
-  }
-  
-  /* Stile pulsante Delete */
-  .del {
-    position: relative;
-    width: 65px; 
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid #ff0000;
-  }
-  
-  .del div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    color: #ff0000;
-    font-weight: bold;
-    font-size: 0.875em;
-    transition: background 0.3s, color 0.3s;
-    border-radius: 18px;
-  }
-  
-  .del:hover div {
-    color: #ffffff;
-    background: #ff0000;
-  }
-  
-  /* Stelle cadenti con animazioni */
-  .shooting-star {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  font-family: Monaco, sans-serif;
+  color: #ffffff;
+  background-image: url('../../assets/img/moon.jpg');
+  /* Sfondo della luna */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  max-width: 1200px;
+  width: 90%;
+  max-height: 600px;
+  background: rgba(0, 0, 0, 0.5);
+  /* Sfondo leggermente scuro e trasparente */
+  overflow-y: auto;
+}
+
+h1 {
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-size: 1.8em;
+}
+
+/* Contenitore notifiche scorrevole */
+.notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  /* Sfondo trasparente per vedere lo sfondo della luna */
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.notification {
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+.notification.success {
+  background-color: rgba(76, 175, 80, 0.8);
+  /* Verde */
+}
+
+.notification.warning {
+  background-color: rgba(255, 193, 7, 0.8);
+  /* Giallo */
+  color: #000000;
+}
+
+.notification.error {
+  background-color: rgba(244, 67, 54, 0.8);
+  /* Rosso */
+}
+
+/* Stile pulsante Delete */
+.del {
+  width: 65px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid #ff0000;
+}
+
+.del div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 0.875em;
+  transition: background 0.3s, color 0.3s;
+  border-radius: 18px;
+}
+
+.del:hover div {
+  color: #ffffff;
+  background: #ff0000;
+}
+
+/* Stelle cadenti con animazioni */
+.shooting-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+}
+
+.star1 {
+  animation: shooting1 4s ease-in-out infinite;
+}
+
+.star2 {
+  animation: shooting2 5s ease-in-out infinite;
+}
+
+.star3 {
+  animation: shooting3 6s ease-in-out infinite;
+}
+
+@keyframes shooting1 {
+  0% {
+    transform: translate(0, 0) scale(1);
     opacity: 0.8;
   }
-  
-  .star1 {
-    top: -10px;
-    left: -10px;
-    animation: shooting1 4s ease-in-out infinite;
+
+  100% {
+    transform: translate(600px, 400px) scale(0.6);
+    opacity: 0;
   }
-  
-  .star2 {
-    top: -20px;
-    left: -20px;
-    animation: shooting2 5s ease-in-out infinite;
+}
+
+@keyframes shooting2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
   }
-  
-  .star3 {
-    top: -30px;
-    left: -30px;
-    animation: shooting3 6s ease-in-out infinite;
+
+  100% {
+    transform: translate(500px, 350px) scale(0.6);
+    opacity: 0;
   }
-  
-  @keyframes shooting1 {
-    0% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0.8;
-    }
-    100% {
-      transform: translate(600px, 400px) scale(0.6);
-      opacity: 0;
-    }
+}
+
+@keyframes shooting3 {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
   }
-  
-  @keyframes shooting2 {
-    0% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0.8;
-    }
-    100% {
-      transform: translate(500px, 350px) scale(0.6);
-      opacity: 0;
-    }
+
+  100% {
+    transform: translate(400px, 300px) scale(0.6);
+    opacity: 0;
   }
-  
-  @keyframes shooting3 {
-    0% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0.8;
-    }
-    100% {
-      transform: translate(400px, 300px) scale(0.6);
-      opacity: 0;
-    }
-  }
-  
+}
