@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HomePage.css";
 import NotificationBox from "../../components/HomePage/NotificationBox/NotificationBox";
 
+interface Notification {
+    id: number;
+    type: "success" | "warning" | "error";
+    message: string;
+}
+
 const HomePage: React.FC = () => {
+    const [notifications, setNotifications] = useState<Notification[]>([
+    { id: 1, type: "success", message: "Operazione completata con successo!" },
+    { id: 2, type: "warning", message: "Attenzione: Verifica i dettagli inseriti." },
+    { id: 3, type: "error", message: "Errore: Si è verificato un problema." }
+    ]);
+
+    const handleDelete = (id: number) => {
+    setNotifications(notifications.filter(notification => notification.id !== id));
+    };
+
     return (
     <div className="container">
         <h1>LE TUE NOTIFICHE</h1>
-            <div className="notifications scrollable">
-                <NotificationBox type="success" message="Operazione completata con successo!" />
-                <NotificationBox type="warning" message="Attenzione: Verifica i dettagli inseriti." />
-                <NotificationBox type="error" message="Errore: Si è verificato un problema." />
-            </div>        
-
-      {/* Stelle cadenti */}
-        <div className="shooting-star star1"></div>
-        <div className="shooting-star star2"></div>
-        <div className="shooting-star star3"></div>
+        <div className="notifications">
+        {notifications.map(notification => (
+            <NotificationBox
+            key={notification.id}
+            type={notification.type}
+            message={notification.message}
+            onDelete={() => handleDelete(notification.id)}
+            />
+        ))}
+        </div>
     </div>
     );
 };
