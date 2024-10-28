@@ -14,7 +14,7 @@ const router = createBrowserRouter([
 	{ path: "/notificationtest", element: <NotificationTestPage /> },
 ]);
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById("main")!).render(
 	<StrictMode>
 		<RouterProvider router={router} />
 	</StrictMode>,
