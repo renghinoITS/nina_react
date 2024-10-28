@@ -6,6 +6,6 @@ import NotificationBox from "./components/HomePage/NotificationBox/NotificationB
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<NotificationBox/>
+		<NotificationBox type={"error"} message={"no TUTTO OK!"}/>
 	</StrictMode>,
 )
