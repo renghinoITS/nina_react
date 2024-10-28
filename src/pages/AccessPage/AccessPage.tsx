@@ -1,10 +1,9 @@
 import "./AccessPage.css";
 
 const AccessPage: React.FC= () => {
-  
     return (
-      <div></div>
+        <div></div>
     );
-  };
-  
-  export default AccessPage;
+    };
+
+    export default AccessPage;
