@@ -2,27 +2,38 @@ import React from "react";
 import "./AccessPage.css";
 
 const AccessPage: React.FC = () => {
-  return (
-    <div className="container">
-      <h1>NINA REACT &#127776;</h1>
-      <div className="ip-input">
-        <label htmlFor="ip-address">Inserisci il tuo indirizzo IP:</label>
-        <input type="text" id="ip-address" placeholder="Es. 192.168.1.1" />
+    return (
+        <div className="access-box">
+            <h1>NINA REACT &#127776;</h1>
+            <div className="access-box-form">
+                
+                <div className="access-box-form-row">
+                    <label htmlFor="ip-address">IP:</label>
+                    <input type="text" id="ip-address" placeholder="Es. 192.168.1.1" />
 
-        <button id="fetchButton" className="btn">
-          <strong>CERCA</strong>
-          <div id="container-stars">
-            <div id="stars"></div>
-          </div>
-          <div id="glow">
-            <div className="circle"></div>
-            <div className="circle"></div>
-          </div>
-        </button>
-      </div>
-      <div id="apod-content" className="apod-content"></div>
-    </div>
-  );
+                    <label htmlFor="porta">Porta:</label>
+                    <input type="text" id="porta" placeholder="Es. 8080" />
+                </div>
+                <div className="access-box-form-row">
+                    <label htmlFor="topic">Topic:</label>
+                    <input type="text" id="topic" placeholder="Es. test/topic" />
+                </div>
+
+                
+                <button id="fetchButton" className="btn">
+                    <strong>CERCA</strong>
+                    <div id="container-stars">
+                        <div id="stars"></div>
+                    </div>
+                    <div id="glow">
+                        <div className="circle"></div>
+                        <div className="circle"></div>
+                    </div>
+                </button>
+            </div>
+            <div id="apod-content" className="apod-content"></div>
+        </div>
+    );
 };
 
 export default AccessPage;
