@@ -1,9 +1,9 @@
-import "./AccessPage.css";
+import "./NotificationTestPage.css";
 
 import useNotification from "../../hooks/useNotification";
 import error from "../../assets/sounds/error.mp3";
 
-const AccessPage: React.FC= () => {
+const NotificationTestPage: React.FC= () => {
     const { notify } = useNotification();
 
     const handleNotify = () => {
@@ -19,4 +19,4 @@ const AccessPage: React.FC= () => {
     );
   };
   
-  export default AccessPage;
+  export default NotificationTestPage;
