@@ -1,20 +1,18 @@
 import "./NotificationTestPage.css";
 
 import useNotification from "../../hooks/useNotification";
-import error from "../../assets/sounds/error.mp3";
+import error from "../../assets/sounds/notificationOk.mp3";
 
 const NotificationTestPage: React.FC= () => {
     const { notify } = useNotification();
 
-    const handleNotify = () => {
-        notify("Hai una nuova notifica!",{
-            body: "Controlla il tuo profilo per i dettagli."
-        }, error);
-    }
+    notify("Hai una nuova notifica!",{
+        body: "Controlla il tuo profilo per i dettagli."
+    }, error);
     
     return (
         <div>
-            <button onClick={handleNotify}>Invia Notifica</button>
+            <button>Invia Notifica</button>
         </div>
     );
   };
