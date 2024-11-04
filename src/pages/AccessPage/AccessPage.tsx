@@ -6,7 +6,7 @@ import StarButton from "../../components/Common/StarButton/StarButton";
 const AccessPage: React.FC = () => {
     return (
         <div className="access-box">
-            <h1>NINA REACT &#127776;</h1>
+            <h1>NINA REACT &#127756;</h1>
             <div className="access-box-form">
                 
                 <div className="access-box-form-row">
