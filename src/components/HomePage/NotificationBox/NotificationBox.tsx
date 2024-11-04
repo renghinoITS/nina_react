@@ -1,7 +1,7 @@
 import "./NotificationBox.css";
 
 interface NotificationBoxProps {
-  type: "success" | "warning" | "error"; // Verde, Giallo, Rosso
+    type: "success" | "warning" | "error";
     message: string;
 }
 

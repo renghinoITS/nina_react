@@ -28,7 +28,7 @@ const useMQTT = ({
 			});
 		});
 
-		mqttClient.on("message", (topic, message) => {
+		mqttClient.on("message", (_, message) => {
 			const decoder = new TextDecoder("utf-8");
 			const decodedString = decoder.decode(message);
 

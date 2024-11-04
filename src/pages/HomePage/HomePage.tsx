@@ -1,5 +1,6 @@
-import React from "react";
 import "./HomePage.css";
+
+import React from "react";
 import NotificationBox from "../../components/HomePage/NotificationBox/NotificationBox";
 
 const HomePage: React.FC = () => {

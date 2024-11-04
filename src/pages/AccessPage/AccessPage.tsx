@@ -1,5 +1,7 @@
-import React from "react";
 import "./AccessPage.css";
+
+import React from "react";
+import StarButton from "../../components/Common/StarButton/StarButton";
 
 const AccessPage: React.FC = () => {
     return (
@@ -19,17 +21,7 @@ const AccessPage: React.FC = () => {
                     <input type="text" id="topic" placeholder="Es. test/topic" />
                 </div>
 
-                
-                <button id="fetchButton" className="btn">
-                    <strong>CERCA</strong>
-                    <div id="container-stars">
-                        <div id="stars"></div>
-                    </div>
-                    <div id="glow">
-                        <div className="circle"></div>
-                        <div className="circle"></div>
-                    </div>
-                </button>
+                {<StarButton buttonText="CONNETTI" isLoading={false}/>}
             </div>
             <div id="apod-content" className="apod-content"></div>
         </div>
