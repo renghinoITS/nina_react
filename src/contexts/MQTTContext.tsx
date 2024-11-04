@@ -18,6 +18,10 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     let messageCounter = 0;
 
     const connect = useCallback((ip: string, port: number, topic: string) => {
+        if (client) {
+            client.end();
+        }
+
         const mqttClient = mqtt.connect(`ws://${ip}:${port}`);
         
         mqttClient.on("connect", () => {
@@ -51,7 +55,7 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         });
 
         setClient(mqttClient);
-    }, []);
+    }, [client]);
 
     const disconnect = () => {
         if (client) {

@@ -19,6 +19,11 @@ const AccessPage: React.FC = () => {
     const handleConnect = () => {
         setErrorMessage(null);
 
+        if (!ip || !port) {
+            setErrorMessage("Per favore, inserisci un indirizzo IP e una porta validi.");
+            return;
+        }
+
         try {
             mqtt.connect(ip, port, topic);
         } catch (error) {
