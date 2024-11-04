@@ -1,38 +1,39 @@
 import "./HomePage.css";
 
-import React, { useState } from "react";
-import "./HomePage.css";
-import NotificationBox from "../../components/HomePage/NotificationBox/NotificationBox";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-interface Notification {
-    id: number;
-    type: "success" | "warning" | "error";
-    message: string;
-}
+import MessageBox from "../../components/HomePage/MessageBox/MessageBox";
+import { useMQTTContext } from "../../contexts/MQTTContext";
 
 const HomePage: React.FC = () => {
-    const [notifications, setNotifications] = useState<Notification[]>([
-    { id: 1, type: "success", message: "Operazione completata con successo!" },
-    { id: 2, type: "warning", message: "Attenzione: Verifica i dettagli inseriti." },
-    { id: 3, type: "error", message: "Errore: Si è verificato un problema." }
-    ]);
+    const navigate = useNavigate();
+
+    const mqtt = useMQTTContext();
+
+    useEffect(() => {
+        if (!mqtt.client || !mqtt.client.connected) {
+            navigate("/", { state: { errorMessage: "Disconnesso dal client"}});
+        }
+    }, [mqtt]);
 
     const handleDelete = (id: number) => {
-    setNotifications(notifications.filter(notification => notification.id !== id));
+        mqtt.removeMessage(id);
     };
 
     return (
     <div className="container">
-        <h1>LE TUE NOTIFICHE</h1>
-        <div className="notifications">
-        {notifications.map(notification => (
-            <NotificationBox
-            key={notification.id}
-            type={notification.type}
-            message={notification.message}
-            onDelete={() => handleDelete(notification.id)}
-            />
-        ))}
+        <h1>MESSAGGI</h1>
+        <div className="messages">
+            {mqtt.messages.map(message => (
+                <MessageBox
+                    key={message.id}
+                    id={message.id}
+                    type={message.type}
+                    message={message.message}
+                    onDelete={() => handleDelete(message.id)}
+                />
+            ))}
         </div>
     </div>
     );
