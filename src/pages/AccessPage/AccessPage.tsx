@@ -21,7 +21,7 @@ const AccessPage: React.FC = () => {
                     <input type="text" id="topic" placeholder="Es. test/topic" />
                 </div>
 
-                {<StarButton buttonText="CONNETTI" isLoading={false}/>}
+                <StarButton buttonText="CONNETTI" isLoading={false}/>
             </div>
             <div id="apod-content" className="apod-content"></div>
         </div>
