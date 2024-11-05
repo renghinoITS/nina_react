@@ -26,6 +26,10 @@
     background-color: rgba(244, 67, 54, 0.8);
 }
 
+.message-box.unknown {
+    background-color: rgba(79, 79, 79, 0.8);
+}
+
 .message-box p {
     flex: 1;
     text-align: center;
@@ -34,8 +38,20 @@
 
 .message-box-deletebtn {
     position: absolute;
-    top: 0;
-    right: 7px;
+    top: 5px;
+    right: 5px;
+
+    width: 18px;
+    height: 18px;
+
+    background-color: white;
+
+    -webkit-mask-image: url("../../../assets/img/delete-icon.png");
+    mask-image: url("../../../assets/img/delete-icon.png");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
 
     cursor: pointer;
 }

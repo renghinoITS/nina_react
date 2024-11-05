@@ -5,7 +5,7 @@ import { MqttMessage } from "../types/interfaces/MqttMessage";
 interface MQTTContextType {
     client: MqttClient | null;
     connect: (ip: string, port: number, topic: string, onSuccess?: () => void) => void;
-    disconnect: () => void;
+    disconnect: (setStatus?: boolean) => void;
     connectionStatus: string | null;
     setConnectionStatus: (status: string | null) => void;
     isConnecting: boolean;
@@ -30,11 +30,11 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         onSuccess?: () => void
     ) => {
         try {
-            setConnectionStatus("Connettendo...");
             setIsConnecting(true);
+            setConnectionStatus("Connettendo...");
 
             if (client) {
-                await disconnect();
+                await disconnect(false);
             }
 
             const mqttClient = mqtt.connect(`ws://${ip}:${port}`, {
@@ -50,12 +50,14 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 mqttClient.subscribe(topic, (err) => {
                     if (!err) {
                         console.log(`Sottoscritto al topic: ${topic}`);
+                        if (onSuccess) {
+                            onSuccess();
+                        }
+                    } else {
+                        console.error("Errore nella sottoscrizione al topic:", err);
+                        setConnectionStatus("Errore nella sottoscrizione al topic.");
                     }
-                });
-
-                if (onSuccess) {
-                    onSuccess();
-                }
+                });  
             });
 
             mqttClient.on("message", (_, message) => {
@@ -86,14 +88,15 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 }
             });
 
-            mqttClient.on("error", () => {
+            mqttClient.on("error", (error) => {
                 setIsConnecting(false);
                 setConnectionStatus("Connessione fallita. Verifica i dettagli inseriti.");
+                console.error("Errore di connessione MQTT:", error);
             });
 
             mqttClient.on("close", () => {
                 setIsConnecting(false);
-                setConnectionStatus("Impossibile connettersi al broker. Verifica l'indirizzo IP e la porta.");
+                setConnectionStatus("Impossibile connettersi al broker o non è più disponibile");
             });
 
             setClient(mqttClient);
@@ -102,9 +105,9 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setConnectionStatus(`Errore durante il tentativo di connessione: ${error}`);
             setIsConnecting(false);
         }
-    }, [client]);
+    }, [client, isConnecting]);
 
-    const disconnect = useCallback(async () => {
+    const disconnect = useCallback(async (setStatus: boolean = true) => {
         if (client) {
             client.removeAllListeners();
 
@@ -112,8 +115,12 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 setClient(null);
                 setMessages([]);
                 messageCounter = 0;
-                setConnectionStatus("Disconnesso.");
-                console.log("Disconnesso dal broker MQTT");
+
+                if (setStatus) {
+                    setConnectionStatus("Disconnesso.");
+                }
+
+                console.log(`Disconnesso dal broker MQTT. ${setStatus ? "" : "Riconnessione..."}`);
             });
         }
     }, [client]);

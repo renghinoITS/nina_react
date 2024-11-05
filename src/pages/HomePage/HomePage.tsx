@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
 
     useEffect(() => {
         if (!mqtt.client || !mqtt.client.connected) {
-            navigate("/", { state: { errorMessage: "Disconnesso dal client"}});
+            navigate("/");
         }
     }, [mqtt]);
 
@@ -21,21 +21,28 @@ const HomePage: React.FC = () => {
         mqtt.removeMessage(id);
     };
 
+    const handleDisconnect = () => {
+        mqtt.disconnect();
+    };
+
     return (
-    <div className="container">
-        <h1>MESSAGGI</h1>
-        <div className="messages">
-            {mqtt.messages.map(message => (
-                <MessageBox
-                    key={message.id}
-                    id={message.id}
-                    type={message.type}
-                    message={message.message}
-                    onDelete={() => handleDelete(message.id)}
-                />
-            ))}
+        <div className="messages-container">
+            <h1>MESSAGGI</h1>
+
+            <div id="disconnect-btn" onClick={handleDisconnect}></div>
+
+            <div className="messages-list">
+                {mqtt.messages.map(message => (
+                    <MessageBox
+                        key={message.id}
+                        id={message.id}
+                        type={message.type}
+                        message={message.message}
+                        onDelete={() => handleDelete(message.id)}
+                    />
+                ))}
+            </div>
         </div>
-    </div>
     );
 };
 

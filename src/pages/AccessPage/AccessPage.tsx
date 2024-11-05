@@ -41,7 +41,7 @@ const AccessPage: React.FC = () => {
                     <input type="text" id="topic" placeholder="Es. Test Topic" onChange={(e) => setTopic(e.target.value)} required/>
                 </div>
 
-                {mqtt.connectionStatus && <div className="status-message">{mqtt.connectionStatus}</div>}
+                {mqtt.connectionStatus && <div className="access-box-form-row">{mqtt.connectionStatus}</div>}
 
                 <StarButton buttonText="CONNETTI" isLoading={mqtt.isConnecting} onClick={handleConnect}/>
             </div>

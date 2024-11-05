@@ -8,7 +8,7 @@ import useNotification from "../../../hooks/useNotification";
 
 interface MessageBoxProps {
     id: number,
-    type: NinaMessageType,
+    type?: NinaMessageType,
     message: string,
     onDelete: () => void
 }
@@ -18,11 +18,11 @@ const MessageBox: React.FC<MessageBoxProps> = ({ id, type, message, onDelete }) 
         [NinaMessageType.ERROR] : "error",
         [NinaMessageType.CALIBRATION_STATUS] : "status",
         [NinaMessageType.OBSERVATION_STARTED] : "info",
-        [NinaMessageType.OBSERVATION_ENDED] : "info",
+        [NinaMessageType.OBSERVATION_ENDED] : "info"
     }
 
     const [messageSent, setMessageSent] = useState<boolean>(false);
-    const className = messageTypeClass[type] || "unknown";
+    const className = messageTypeClass[type as NinaMessageType] || "unknown";
     const { notify } = useNotification();
     
     useEffect(() => {
@@ -42,9 +42,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ id, type, message, onDelete }) 
     return (
         <div id={id.toString()} className={`message-box ${className}`}>
             <p>{message}</p>
-            <div className="message-box-deletebtn" onClick={onDelete}>
-                <div>x</div>
-            </div>
+            <div className="message-box-deletebtn" onClick={onDelete}></div>
         </div>
     );
 };
