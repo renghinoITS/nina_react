@@ -22,7 +22,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ id, type, message, onDelete }) 
     }
 
     const [messageSent, setMessageSent] = useState<boolean>(false);
-    const className = messageTypeClass[type] || "uknown";
+    const className = messageTypeClass[type] || "unknown";
     const { notify } = useNotification();
     
     useEffect(() => {

@@ -1,6 +1,6 @@
 import "./AccessPage.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import StarButton from "../../components/Common/StarButton/StarButton";
@@ -12,36 +12,17 @@ const AccessPage: React.FC = () => {
     const [ip, setIp] = useState("");     
     const [port, setPort] = useState(9001);     
     const [topic, setTopic] = useState("");
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     
     const mqtt = useMQTTContext();
 
     const handleConnect = () => {
-        setErrorMessage(null);
-
         if (!ip || !port) {
-            setErrorMessage("Per favore, inserisci un indirizzo IP e una porta validi.");
+            mqtt.setConnectionStatus("Per favore, inserisci un indirizzo IP e una porta validi.");
             return;
         }
 
-        try {
-            mqtt.connect(ip, port, topic);
-        } catch (error) {
-            setErrorMessage("Errore durante la connessione: " + (error as Error).message);
-        }
+        mqtt.connect(ip, port, topic, () => navigate("/home"));
     };
-
-    useEffect(() => {
-        if (mqtt.client) {
-            mqtt.client.on("connect", () => {
-                navigate("/home");
-            });
-
-            mqtt.client.on("error", () => {
-                setErrorMessage("Connessione fallita. Verifica i dettagli inseriti.");
-            });
-        }
-    }, [mqtt.client, navigate]);
 
     return (
         <div className="access-box">
@@ -60,9 +41,9 @@ const AccessPage: React.FC = () => {
                     <input type="text" id="topic" placeholder="Es. Test Topic" onChange={(e) => setTopic(e.target.value)} required/>
                 </div>
 
-                {errorMessage && <div className="error-message">{errorMessage}</div>}
+                {mqtt.connectionStatus && <div className="status-message">{mqtt.connectionStatus}</div>}
 
-                <StarButton buttonText="CONNETTI" isLoading={false} onClick={handleConnect}/>
+                <StarButton buttonText="CONNETTI" isLoading={mqtt.isConnecting} onClick={handleConnect}/>
             </div>
             <div id="apod-content" className="apod-content"></div>
         </div>

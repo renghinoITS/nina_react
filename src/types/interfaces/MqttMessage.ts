@@ -2,6 +2,6 @@ import { NinaMessageType } from "../enums/NinaMessageType";
 
 export interface MqttMessage {
     id: number,
-	type: NinaMessageType,
+	type: NinaMessageType | undefined,
     message: string
 }
