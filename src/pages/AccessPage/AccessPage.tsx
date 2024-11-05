@@ -53,11 +53,11 @@ const AccessPage: React.FC = () => {
                     <input type="text" id="ip-address" placeholder="Es. 192.168.1.1" onChange={(e) => setIp(e.target.value)} required/>
 
                     <label htmlFor="porta">Porta:</label>
-                    <input type="text" id="porta" placeholder="Es. 8080" onChange={(e) => setPort(Number(e.target.value))} required/>
+                    <input type="text" id="porta" placeholder="Es. 9001" onChange={(e) => setPort(Number(e.target.value))} required/>
                 </div>
                 <div className="access-box-form-row">
                     <label htmlFor="topic">Topic:</label>
-                    <input type="text" id="topic" placeholder="Es. test/topic" onChange={(e) => setTopic(e.target.value)} required/>
+                    <input type="text" id="topic" placeholder="Es. Test Topic" onChange={(e) => setTopic(e.target.value)} required/>
                 </div>
 
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
