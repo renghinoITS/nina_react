@@ -1,6 +1,6 @@
 import "./HomePage.css";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import MessageBox from "../../components/HomePage/MessageBox/MessageBox";
@@ -8,14 +8,19 @@ import { useMQTTContext } from "../../contexts/MQTTContext";
 
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
-
     const mqtt = useMQTTContext();
+
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!mqtt.client || !mqtt.client.connected) {
             navigate("/");
         }
     }, [mqtt]);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [mqtt.messages]);
 
     const handleDelete = (id: number) => {
         mqtt.removeMessage(id);
@@ -41,6 +46,7 @@ const HomePage: React.FC = () => {
                         onDelete={() => handleDelete(message.id)}
                     />
                 ))}
+                <div ref={messagesEndRef} />
             </div>
         </div>
     );

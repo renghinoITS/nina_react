@@ -6,7 +6,6 @@
     justify-content: center;
 
     padding: 10px;
-    margin: 10px 0;
 
     border-radius: 5px;
     
@@ -33,7 +32,7 @@
 .message-box p {
     flex: 1;
     text-align: center;
-    margin: 0;
+    margin: 10px;
 }
 
 .message-box-deletebtn {
