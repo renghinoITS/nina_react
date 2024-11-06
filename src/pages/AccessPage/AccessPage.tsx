@@ -25,16 +25,21 @@ const AccessPage: React.FC = () => {
             mqtt.setConnectionStatus("Per favore, inserisci un indirizzo IP e una porta validi.");
             return;
         }
-        // Calls the MQTT connection function with the IP, port, and topic. 
-        // After connecting, it navigates to the "/home" page
-        mqtt.connect(ip, port, topic, () => navigate("/home"));
+        
+        /**
+         * 
+         * Calls the MQTT connection function with the IP, port, and topic. 
+         * After connecting, it navigates to the "/home" page
+        */
+
+        mqtt.connect(ip, port, topic);
     };
     // checks if the MQTT client is connected, if connected, go to "/home"
     useEffect(() => {
         if(mqtt.client && mqtt.client.connected) {
             navigate("/home");
         }
-    }, [mqtt.client]);
+    }, [mqtt.client, mqtt.client?.connected]);
 
     return (
         <div className="access-box">

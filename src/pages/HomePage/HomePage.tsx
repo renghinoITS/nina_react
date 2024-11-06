@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
         <div className="messages-container">
             <h1>MESSAGGI</h1>
 
-            <div id="disconnect-btn" onClick={handleDisconnect}>Disconnetti</div>
+            <div id="disconnect-btn" data-testid="disconnect-btn" onClick={handleDisconnect}>Disconnetti</div>
             <div id="deleteall-btn" onClick={handleDeleteAll}>Cancella Tutti i Messaggi</div>
           
             <div className="messages-list">

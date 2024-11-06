@@ -25,10 +25,9 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     let messageCounter = 0;
 
     const connect = useCallback(async (
-        ip: string,
-        port: number,
-        topic: string,
-        onSuccess?: () => void
+        ip: string, 
+        port: number, 
+        topic: string
     ) => {
         try {
             setIsConnecting(true);
@@ -51,10 +50,6 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 mqttClient.subscribe(topic, (err) => {
                     if (!err) {
                         console.log(`Sottoscritto al topic: ${topic}`);
-                       
-                        if (onSuccess) {
-                            onSuccess();
-                        }
                     } else {
                         console.error("Errore nella sottoscrizione al topic:", err);
                         setConnectionStatus("Errore nella sottoscrizione al topic.");
