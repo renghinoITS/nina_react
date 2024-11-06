@@ -42,6 +42,7 @@ jest.mock("react-router-dom", () => ({
 describe("HomePage", () => {
   // Definizione delle funzioni di mock per simulare `removeMessage`, `disconnect` e `navigate`
   const mockRemoveMessage = jest.fn();
+  const mockRemoveAllMessages = jest.fn();
   const mockDisconnect = jest.fn();
   const mockNavigate = jest.fn();
 
@@ -52,6 +53,7 @@ describe("HomePage", () => {
     // Configura il contesto MQTT per i test con valori simulati
     (useMQTTContext as jest.Mock).mockReturnValue({
         removeMessage: mockRemoveMessage,
+        removeAllMessages: mockRemoveAllMessages, // Mock per la funzione `removeAllMessages`
         disconnect: mockDisconnect,
         client: { connected: true },
         messages: [{ id: 1, message: "Hello, MQTT!" }],  // Usato `message` anziché `text` per corrispondere all'interfaccia `MqttMessage`
@@ -126,5 +128,21 @@ describe("HomePage", () => {
 
     // Verifica che `disconnect` sia stato chiamato
     expect(mockDisconnect).toHaveBeenCalled();
+  });
+
+  // Test per verificare che `removeAllMessages` venga chiamato quando si clicca sul pulsante "Cancella Tutti i Messaggi"
+  test("calls removeAllMessages when the delete all button is clicked", () => {
+    render(
+      <BrowserRouter>
+        <HomePage />
+      </BrowserRouter>
+    );
+
+    // Simula un click sul pulsante di eliminazione di tutti i messaggi
+    const deleteAllButton = screen.getByText("Cancella Tutti i Messaggi");
+    fireEvent.click(deleteAllButton);
+
+    // Verifica che `removeAllMessages` sia stato chiamato
+    expect(mockRemoveAllMessages).toHaveBeenCalled();
   });
 });

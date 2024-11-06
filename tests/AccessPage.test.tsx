@@ -79,19 +79,19 @@ describe("AccessPage", () => {
 				<AccessPage />
 			</BrowserRouter>
 		);
-
-		// Inserisce valori nei campi di input
+	
+		// Cambia i valori degli input
 		fireEvent.change(screen.getByLabelText("IP:"), { target: { value: "192.168.1.1" } });
 		fireEvent.change(screen.getByLabelText("Porta:"), { target: { value: "9001" } });
 		fireEvent.change(screen.getByLabelText("Topic:"), { target: { value: "Test Topic" } });
-
-		// Clicca sul pulsante "CONNETTI"
+	
+		// Simula il click sul pulsante "CONNETTI"
 		fireEvent.click(screen.getByText("CONNETTI"));
-		
+	
 		// Verifica che `connect` venga chiamato con i valori inseriti
-		expect(mockConnect).toHaveBeenCalledWith("192.168.1.1", 9001, "Test Topic", expect.any(Function));
+		expect(mockConnect).toHaveBeenCalledWith("192.168.1.1", 9001, "Test Topic"); // Qui aggiungi questa riga
 	});
-
+	
 	// Test per verificare la navigazione alla pagina "/home" quando il client è connesso
 	test("naviga a /home quando il client è connesso", () => {
 		// Imposta `client.connected` su true per simulare una connessione attiva
