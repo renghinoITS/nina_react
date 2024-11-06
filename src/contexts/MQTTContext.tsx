@@ -11,6 +11,7 @@ interface MQTTContextType {
     isConnecting: boolean;
     messages: MqttMessage[];
     removeMessage: (id: number) => void;
+    removeAllMessages: () => void; 
 }
 
 const MQTTContext = createContext<MQTTContextType | undefined>(undefined);
@@ -24,9 +25,9 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     let messageCounter = 0;
 
     const connect = useCallback(async (
-        ip: string, 
-        port: number, 
-        topic: string, 
+        ip: string,
+        port: number,
+        topic: string,
         onSuccess?: () => void
     ) => {
         try {
@@ -40,7 +41,7 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const mqttClient = mqtt.connect(`ws://${ip}:${port}`, {
                 reconnectPeriod: 0,
             });
-            
+           
             mqttClient.on("connect", () => {
                 setIsConnecting(false);
                 setConnectionStatus("Connesso con successo.");
@@ -50,7 +51,7 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 mqttClient.subscribe(topic, (err) => {
                     if (!err) {
                         console.log(`Sottoscritto al topic: ${topic}`);
-                        
+                       
                         if (onSuccess) {
                             onSuccess();
                         }
@@ -130,8 +131,12 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setMessages((prevMessages) => prevMessages.filter(message => message.id !== id));
     };
 
+    const removeAllMessages = () => {
+        setMessages([]);
+    };
+
     return (
-        <MQTTContext.Provider value={{ client, connect, disconnect, connectionStatus, setConnectionStatus, isConnecting, messages, removeMessage }}>
+        <MQTTContext.Provider value={{ client, connect, disconnect, connectionStatus, setConnectionStatus, isConnecting, messages, removeMessage, removeAllMessages }}>
             {children}
         </MQTTContext.Provider>
     );

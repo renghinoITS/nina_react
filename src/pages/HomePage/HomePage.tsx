@@ -34,6 +34,11 @@ const HomePage: React.FC = () => {
         mqtt.removeMessage(id);
     };
 
+    // Function to delete all messages
+    const handleDeleteAll = () => {
+        mqtt.removeAllMessages();
+    };
+
     // Function to disconnect from the MQTT client
     const handleDisconnect = () => {
         mqtt.disconnect();
@@ -43,8 +48,9 @@ const HomePage: React.FC = () => {
         <div className="messages-container">
             <h1>MESSAGGI</h1>
 
-            <div id="disconnect-btn" onClick={handleDisconnect}></div>
-
+            <div id="disconnect-btn" onClick={handleDisconnect}>Disconnetti</div>
+            <div id="deleteall-btn" onClick={handleDeleteAll}>Cancella Tutti i Messaggi</div>
+          
             <div className="messages-list">
                 {mqtt.messages.map(message => (
                     <MessageBox
