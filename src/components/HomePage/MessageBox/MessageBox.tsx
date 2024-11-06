@@ -62,8 +62,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ id, type, message, onDelete }) 
         <div id={id.toString()} className={`message-box ${className}`}>
 
             <p>{message}</p>
-
-            <div className="message-box-deletebtn" onClick={onDelete}></div>
+            <div className="message-box-deletebtn" data-testid={`delete-btn-${id}`} onClick={onDelete}></div>
         </div>
     );
 };

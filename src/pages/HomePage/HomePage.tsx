@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
         <div className="messages-container">
             <h1>MESSAGGI</h1>
 
-            <div id="disconnect-btn" onClick={handleDisconnect}></div>
+            <div id="disconnect-btn" data-testid="disconnect-btn" onClick={handleDisconnect}></div>
 
             <div className="messages-list">
                 {mqtt.messages.map(message => (
