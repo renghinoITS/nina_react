@@ -25,6 +25,12 @@ const AccessPage: React.FC = () => {
             mqtt.setConnectionStatus("Per favore, inserisci un indirizzo IP e una porta validi.");
             return;
         }
+        
+        /**
+         * 
+         * Calls the MQTT connection function with the IP, port, and topic. 
+         * After connecting, it navigates to the "/home" page
+        */
 
         mqtt.connect(ip, port, topic);
     };

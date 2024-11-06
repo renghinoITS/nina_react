@@ -49,7 +49,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ id, type, message, onDelete }) 
         const sound = type === NinaMessageType.ERROR ? errorSound : notificationSound;
 
         // Trigger the notification with the message content
-        notify("New message from NINA", {
+        notify("Nuovo messaggio da NINA", {
             body: message,
         }, sound);
 
