@@ -21,14 +21,14 @@ const AccessPage: React.FC = () => {
             return;
         }
 
-        mqtt.connect(ip, port, topic, () => navigate("/home"));
+        mqtt.connect(ip, port, topic);
     };
 
     useEffect(() => {
         if(mqtt.client && mqtt.client.connected) {
             navigate("/home");
         }
-    }, [mqtt.client]);
+    }, [mqtt.client, mqtt.client?.connected]);
 
     return (
         <div className="access-box">
