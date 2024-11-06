@@ -50,6 +50,7 @@ export const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 mqttClient.subscribe(topic, (err) => {
                     if (!err) {
                         console.log(`Sottoscritto al topic: ${topic}`);
+                        
                         if (onSuccess) {
                             onSuccess();
                         }

@@ -14,7 +14,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 25rem;
+    width: 90%;
+    max-width: 800px;
     height: 2.5rem;
     overflow: hidden;
     background-size: 300% 300%;

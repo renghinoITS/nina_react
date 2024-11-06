@@ -20,7 +20,10 @@ const useNotification = () => {
 
         if (Notification.permission === "granted") {
             sendNotification(title, options, audioPath);
-        } else if (Notification.permission !== "denied") {
+            return;
+        }
+        
+        if (Notification.permission !== "denied") {
             Notification.requestPermission().then((permission) => {
                 if (permission === "granted") {
                     sendNotification(title, options, audioPath);
@@ -28,7 +31,6 @@ const useNotification = () => {
             });
         } else {
             console.error("Notifiche disattivate.");
-            alert("Notifiche disattivate! Riattivale per riceverle!");
         }
     };
 

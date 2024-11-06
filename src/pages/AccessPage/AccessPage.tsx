@@ -1,6 +1,6 @@
 import "./AccessPage.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import StarButton from "../../components/Common/StarButton/StarButton";
@@ -23,6 +23,12 @@ const AccessPage: React.FC = () => {
 
         mqtt.connect(ip, port, topic, () => navigate("/home"));
     };
+
+    useEffect(() => {
+        if(mqtt.client && mqtt.client.connected) {
+            navigate("/home");
+        }
+    }, [mqtt.client]);
 
     return (
         <div className="access-box">
