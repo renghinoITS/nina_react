@@ -32,46 +32,46 @@ Attraverso il protocollo **MQTT**, l'applicazione consente di ricevere messaggi 
 ### 1. Clonare il repository
 
 Clonare il progetto sul proprio ambiente di sviluppo locale:
-\`\`\`bash
+```bash
 git clone https://github.com/renghinoITS/nina_react.git
 cd nina_react
-\`\`\`
+```
 
 ### 2. Installare le dipendenze
 
 Eseguire il seguente comando per installare le dipendenze del progetto:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ### 3. Avviare il broker Mosquitto
 
 #### Opzione 1: Avvio locale
 Se Mosquitto è installato sul sistema:
-\`\`\`bash
+```bash
 mosquitto -v
-\`\`\`
+```
 
 #### Opzione 2: Utilizzo di Docker
 Per avviare Mosquitto tramite Docker:
-\`\`\`bash
+```bash
 docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto
-\`\`\`
+```
 
 ### 4. Configurare il file `.env` (opzionale)
 
 Creare un file `.env` nella root del progetto per configurare il broker MQTT:
-\`\`\`env
+```env
 REACT_APP_MQTT_BROKER=ws://localhost:9001
 REACT_APP_MQTT_TOPIC=nina/messages
-\`\`\`
+```
 
 ### 5. Avviare l'applicazione
 
 Avviare il server di sviluppo con il seguente comando:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 L'app sarà disponibile all'indirizzo: `http://localhost:3000`.
 
@@ -79,17 +79,15 @@ L'app sarà disponibile all'indirizzo: `http://localhost:3000`.
 
 ## Simulazione dei messaggi MQTT
 
-È possibile simulare messaggi MQTT per testare l'applicazione.
+### Messaggio di successo:
+```bash
+mosquitto_pub -h localhost -p 1883 -t nina/messages -m '{"type": "success", "message": "Calibrazione completata con successo!"}'
+```
 
-1. **Messaggio di successo**:
-   \`\`\`bash
-   mosquitto_pub -h localhost -p 1883 -t nina/messages -m '{"type": "success", "message": "Calibrazione completata con successo!"}'
-   \`\`\`
-
-2. **Messaggio di errore**:
-   \`\`\`bash
-   mosquitto_pub -h localhost -p 1883 -t nina/messages -m '{"type": "error", "message": "Obiettivo perso!"}'
-   \`\`\`
+### Messaggio di errore:
+```bash
+mosquitto_pub -h localhost -p 1883 -t nina/messages -m '{"type": "error", "message": "Obiettivo perso!"}'
+```
 
 ---
 
@@ -133,13 +131,13 @@ Contributi al progetto sono i benvenuti. Segui questi passaggi per contribuire:
 
 1. Fai un fork del repository.
 2. Crea un branch per la tua modifica:
-   \`\`\`bash
+   ```bash
    git checkout -b feature/il-tuo-contributo
-   \`\`\`
+   ```
 3. Effettua un commit delle modifiche:
-   \`\`\`bash
+   ```bash
    git commit -m "Aggiunta: il-tuo-contributo"
-   \`\`\`
+   ```
 4. Invia una pull request.
 
 ---
