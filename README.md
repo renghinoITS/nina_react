@@ -1,50 +1,99 @@
-# React + TypeScript + Vite
+NINA React 🌌
+NINA React è un'applicazione web progettata per integrarsi con N.I.N.A. (Nighttime Imaging 'N' Astronomy), un software di gestione astronomica. L'obiettivo del progetto è fornire un'interfaccia reattiva e intuitiva per ricevere notifiche in tempo reale relative allo stato delle operazioni di calibrazione e tracking degli obiettivi gestite da N.I.N.A.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Attraverso il protocollo MQTT, l'applicazione consente di ricevere messaggi di successo e, soprattutto, messaggi di errore critici (ad esempio, la perdita dell'obiettivo). Gli errori sono notificati all'utente tramite notifiche visive e sonore, migliorando la prontezza nell'identificare e risolvere i problemi durante le osservazioni astronomiche.
 
-Currently, two official plugins are available:
+Caratteristiche principali
+Integrazione con MQTT: Connessione con broker MQTT per la ricezione di messaggi inviati da N.I.N.A.
+Notifiche in tempo reale:
+Messaggi di successo: Confermano operazioni completate correttamente, come calibrazione e tracking dell'obiettivo.
+Messaggi di errore: Evidenziati in tempo reale tramite notifiche sonore e visive.
+Gestione semplice dei messaggi: L'applicazione consente la consultazione, l'eliminazione di singoli messaggi o la rimozione completa dell'elenco.
+Simulazione con Mock e Mosquitto: Possibilità di testare l'app utilizzando Mosquitto come broker MQTT e Mock per simulare messaggi.
+Requisiti tecnici
+Node.js (v16 o superiore)
+Mosquitto (broker MQTT)
+Mock (per testare la ricezione dei messaggi)
+Browser compatibile con notifiche Web
+Configurazione e installazione
+1. Clonare il repository
+Clonare il progetto sul proprio ambiente di sviluppo locale:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+git clone https://github.com/renghinoITS/nina_react.git
+cd nina_react
+2. Installare le dipendenze
+Eseguire il seguente comando per installare le dipendenze del progetto:
 
-## Expanding the ESLint configuration
+npm install
+3. Avviare il broker Mosquitto
+Opzione 1: Avvio locale
+Se Mosquitto è installato sul sistema:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+mosquitto -v
+Opzione 2: Utilizzo di Docker
+Per avviare Mosquitto tramite Docker:
 
-- Configure the top-level `parserOptions` property like this:
+docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+4. Configurare il file .env (opzionale)
+Creare un file .env nella root del progetto per configurare il broker MQTT:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+REACT_APP_MQTT_BROKER=ws://localhost:9001
+REACT_APP_MQTT_TOPIC=nina/messages
+5. Avviare l'applicazione
+Avviare il server di sviluppo con il seguente comando:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+npm run dev
+L'app sarà disponibile all'indirizzo: http://localhost:3000.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Simulazione dei messaggi MQTT
+È possibile simulare messaggi MQTT per testare l'applicazione.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Messaggio di successo:
+
+mosquitto_pub -h localhost -p 1883 -t nina/messages -m '{"type": "success", "message": "Calibrazione completata con successo!"}'
+Messaggio di errore:
+
+mosquitto_pub -h localhost -p 1883 -t nina/messages -m '{"type": "error", "message": "Obiettivo perso!"}'
+Utilizzo
+Collegamento al broker MQTT:
+
+Accedi alla pagina iniziale (/) e inserisci i dettagli di connessione:
+Indirizzo IP del broker MQTT.
+Porta (es. 9001).
+Topic MQTT (es. nina/messages).
+Clicca su Connetti.
+Consultazione dei messaggi:
+
+Una volta connesso, verrai reindirizzato alla pagina /home dove potrai:
+Visualizzare i messaggi ricevuti.
+Eliminare singoli messaggi o tutti i messaggi.
+Ricevere notifiche sonore per messaggi di errore.
+Disconnessione:
+
+Clicca sul pulsante Disconnetti per terminare la connessione con il broker MQTT.
+Struttura del progetto
+Pagine principali:
+AccessPage: Gestisce la connessione al broker MQTT.
+HomePage: Visualizza e gestisce i messaggi ricevuti.
+MQTTContext:
+Centralizza la logica per la connessione al broker e la gestione dei messaggi.
+Hook personalizzato:
+useNotification: Per notifiche browser con supporto audio.
+Router:
+Configurazione del routing con React Router per navigare tra / e /home.
+Contributi
+Contributi al progetto sono i benvenuti. Segui questi passaggi per contribuire:
+
+Fai un fork del repository.
+Crea un branch per la tua modifica:
+git checkout -b feature/il-tuo-contributo
+Effettua un commit delle modifiche:
+git commit -m "Aggiunta: il-tuo-contributo"
+Invia una pull request.
+Tecnologie utilizzate
+React con TypeScript: Per l'interfaccia utente.
+Mosquitto: Come broker MQTT.
+Mock: Per testare la ricezione di messaggi.
+CSS: Per lo styling dell'applicazione.
+Licenza
+Questo progetto è distribuito sotto la licenza MIT License.
